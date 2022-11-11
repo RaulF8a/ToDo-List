@@ -4,6 +4,7 @@ import path from 'path';
 import ejs from 'ejs';
 import mongoose from 'mongoose';
 import date from './date.js'
+import { randomBytes } from 'crypto';
 
 const app = express ();
 const __dirname = path.resolve ();
@@ -85,6 +86,7 @@ app.post ("/", (req, res) => {
     const itemName = req.body.newItem;
     const listName = req.body.list[0].toLowerCase () + req.body.list.slice (1);
     let today = date.getDateP ();
+    const id = randomBytes(4).toString ("hex");
 
     const item = new Item ({
         name: itemName
@@ -165,6 +167,6 @@ app.get ("/:customListName", (req, res) => {
     });
 });
 
-app.listen (process.env.PORT || 3000, () => {
-    console.log ("Server running on port 3000.");
+app.listen (process.env.PORT || 4000, () => {
+    console.log ("Server running on port 4000.");
 });
