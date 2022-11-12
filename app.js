@@ -15,7 +15,25 @@ app.use (express.static ("public"));
 app.set ("view engine", "ejs");
 
 // Moongose connection
-mongoose.connect ("mongodb+srv://admin-raul:test123@cluster0.gg60o.mongodb.net/todolistDB");
+// mongoose.connect ("mongodb+srv://admin-raul:test123@cluster0.gg60o.mongodb.net/todolistDB");
+var username = process.env.MONGO_DB_USERNAME || 'someUserName';
+var password = process.env.MONGO_DB_PASSWORD || 'somePassword';
+
+var host = process.env.MONGODB_SERVICE_HOST || '127.0.0.1';
+var port = process.env.MONGODB_SERVICE_PORT || '27017';
+
+var database = process.env.MONGO_DB_DATABASE || 'sampledb';
+console.log('---DATABASE PARAMETERS---');
+console.log('Host: ' + host);
+console.log('Port: ' + port);
+console.log('Username: ' + username);
+console.log('Password: ' + password); 
+console.log('Database: ' + database);
+
+var connectionString = 'mongodb://' + username + ':' + password +'@' + host + ':' + port + '/' + database;
+console.log('---CONNECTING TO---');
+console.log(connectionString);
+mongoose.connect(connectionString);
 
 // Item Schema
 const itemSchema = {
